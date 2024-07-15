@@ -1,9 +1,10 @@
 # Calculator_python
 
 <p align="center">
-  <img src="[demo.gif](https://github.com/user-attachments/assets/raw/main/bf3858d4-a569-44a5-bebe-3a623c3716fa.gif)" alt="animated" />
+  <img src="![8x38eh](https://github.com/user-attachments/assets/0074e162-0af0-4c04-a07a-7ba608d553ff)" />
 </p>
 The calculator uses Python's Tkinter for the graphical user interface. It integrates mathematical capabilities through libraries like Sympy and NumPy, providing users with a wide array of functions and operations.
+
 
 
 Key Features:
