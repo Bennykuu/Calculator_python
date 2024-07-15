@@ -14,11 +14,8 @@ Key Features:
 
 5. Additional Features: Users can toggle shift mode to access supplementary functions, change the sign of numbers (+/-), and convert between fraction and decimal formats (S⇔D).
 
-Keyboard Support: Supports input via keyboard (but still limited).Right-click functionality allows users to copy-paste text input and manage history entries.
+6. Keyboard Support: Supports input via keyboard (but still limited).Right-click functionality allows users to copy-paste text input and manage history entries.
 
-The calculator employs a dark theme
+7. Theme: The calculator employs a dark theme
 
-
-Limitations:
-
-It does not support operations involving complex numbers.
+Limitations: It does not support operations involving complex numbers.
