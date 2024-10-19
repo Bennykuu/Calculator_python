@@ -28,6 +28,7 @@ class Calculator:
 
         self.calculator.bind("<F11>", self.disable_fullscreen)
         self.calculator.mainloop()
+        
     def setup_buttons(self):
         self.buttons = []
         for i in range(4):
@@ -55,9 +56,11 @@ class Calculator:
             self.angle_buttons[mode] = tk.Button(self.calculator, text=mode, height="3", width="9", command=lambda m=mode: self.button_click(m), bg="gray23", fg="white", highlightthickness=0, bd=0)
             self.angle_buttons[mode].grid(row=column, column=3, padx=1, pady=3)
             self.angle_buttons[mode].grid_remove()
+            
     def disable_fullscreen(self, event):
         if (event.state & 0x100):
             return "break"
+            
     def button_click(self, character):
         pos = self.display.txt.index(INSERT)
         actions = {
@@ -84,6 +87,7 @@ class Calculator:
         }
         actions.get(character, lambda: self.display.txt.insert(pos, character))()
         self.update_buttons()
+        
     def calculate(self):
         try:
             expression = self.display.txt.get("1.0", END).strip().replace("×", "*").replace("π", "pi").replace("^", "**").replace("sp.exp", "np.exp").replace("√", "sqrt")
@@ -121,9 +125,11 @@ class Calculator:
         except Exception:
             self.display.txt.delete("1.0", "end")
             self.display.txt.insert("1.0", "Error")
+            
     def toggle_shift(self):
         self.shift_mode = not self.shift_mode
         self.update_buttons()
+        
     def update_buttons(self):
         button_list = self.List_shift if self.shift_mode else self.List
         self.shift_button.config(fg="green" if self.shift_mode else "white")
@@ -139,16 +145,20 @@ class Calculator:
             else:
                 self.angle_buttons[mode].grid_remove()
             self.update_angle_button_color(mode)
+            
     def update_angle_button_color(self, mode):
         self.angle_buttons[mode].config(fg="green" if mode == self.angle_mode else "White")
+        
     def set_angle_mode(self, mode):
         self.angle_mode = mode
         self.update_buttons()
+        
     def convert_angles(self, expression):
         if self.angle_mode in ["grad", "deg"]:
             factor = {"grad": "pi/200", "deg": "pi/180"}[self.angle_mode]
             expression = expression.replace("sin(", f"sin({factor} * ").replace("cos(", f"cos({factor} * ").replace("tan(", f"tan({factor} * ")
         return expression
+        
     def s_and_d(self):
         try:
             current_text = self.display.txt.get("1.0", END).strip()
@@ -158,6 +168,7 @@ class Calculator:
         except ValueError:
             self.display.txt.delete("1.0", END)
             self.display.txt.insert("1.0", "Invalid input")
+            
     def absolut(self):
         current_text = self.display.txt.get("1.0", END).strip()
         try:
@@ -166,6 +177,7 @@ class Calculator:
         except ValueError:
             self.display.txt.delete("1.0", END)
             self.display.txt.insert("1.0", "Invalid input")
+            
     def change_positive_negative(self):
         current_text = self.display.txt.get("1.0", END).strip()
         try:
@@ -188,13 +200,17 @@ class Display:
         self.context_menu.add_command(label="copy", command=self.copy_text)
         self.context_menu.add_command(label="insert", command=self.paste_text)
         self.txt.bind("<Button-3>", self.show_context_menu)
+        
     def copy_text(self):
         self.txt.clipboard_clear(),
         self.txt.clipboard_append(self.txt.get(tk.SEL_FIRST, tk.SEL_LAST))
+        
     def paste_text(self):
         self.txt.insert(tk.INSERT, self.txt.clipboard_get())
+        
     def show_context_menu(self, event):
         self.context_menu.post(event.x_root, event.y_root)
+        
     def on_key_press(self, event):
         key_pressed = event.keysym
         if key_pressed == "BackSpace":
@@ -207,6 +223,7 @@ class History:
     def __init__(self, calculator):
         self.calculator = calculator
         self.history_window = None
+        
     def show_history(self):
         if self.history_window and self.history_window.winfo_exists():
             self.history_window.destroy()
@@ -231,8 +248,10 @@ class History:
         self.update_history_window_position()
         self.calculator.calculator.bind("<Configure>", lambda e: self.update_history_window_position())
         self.toggle_history_button_text(True)
+        
     def toggle_history_button_text(self, opened):
         self.calculator.top_row[-1].config(text="History")
+        
     def update_history_window_position(self):
         if self.history_window and isinstance(self.history_window, tk.Toplevel) and self.history_window.winfo_exists():
             x, y = self.calculator.calculator.winfo_x(), self.calculator.calculator.winfo_y()
